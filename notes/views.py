@@ -6,11 +6,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Notes
 from .forms import NotesForms
 
+class NotesAllListView(ListView):
+    model= Notes
+    context_object_name = 'notes'
+    template_name = 'notes/notes_all_list.html'
+
+    def get_queryset(self):
+        return Notes.objects.all()
 
 class NotesListView(LoginRequiredMixin,ListView):
     model = Notes
     context_object_name = "notes"
-    template_name = 'notes.notes_list.html'
+    template_name = 'notes/notes_list.html'
     login_url = 'home.login'
 
     def get_queryset(self):
